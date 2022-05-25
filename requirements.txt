@@ -1,0 +1,4 @@
+requests
+requests[socks] 
+python-telegram-bot
+telegram
