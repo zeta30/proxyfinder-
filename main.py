@@ -32,7 +32,7 @@ def filtrar_text(update, context):
                     context.bot.sendMessage(update.message.chat.id,msg_start)
                     print("Buscando proxy...")
                     time.sleep(1.5)
-                    try:bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg_start}\n\n➖➖➖➖➖➖➖\nBuscando proxy...\n\n➖➖➖➖➖➖➖")
+                    try:context.bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg_start}\n\n➖➖➖➖➖➖➖\nBuscando proxy...\n\n➖➖➖➖➖➖➖")
                     except Exception as ex:print(str(ex))
                     context.bot.sendMessage(update.message.chat.id,msg_start)
                     for port in range(int(rango_min),int(rango_max)):
@@ -42,20 +42,20 @@ def filtrar_text(update, context):
                         if result == 0:
                             print ("Puerto abierto!")
                             print (f"Puerto: {port}")
-                            try:bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg_start}\n\n➖➖➖➖➖➖➖\nPuerto abierto!\nPuerto: {port}\n➖➖➖➖➖➖➖")
+                            try:context.bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg_start}\n\n➖➖➖➖➖➖➖\nPuerto abierto!\nPuerto: {port}\n➖➖➖➖➖➖➖")
                             except Exception as ex:print(str(ex))
                             proxy = f'{ip}:{port}'
                             proxy_new = S5Crypto.encrypt(f'{proxy}')
                             time.sleep(5)
                             msg = 'Su nuevo proxy es:\n\nsocks5://' + proxy_new
-                            try:bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg}")
+                            try:context.bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg}")
                             except Exception as ex:print(str(ex))
                             break
                         else:
                             print ("Error...Buscando...")
                             print (f"Buscando en el puerto: {port}")
                             sock.close()
-                            try:bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg_start}\n\n➖➖➖➖➖➖➖\nError...Buscando...\nBuscando en el Puerto: {port}\n➖➖➖➖➖➖➖")
+                            try:context.bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg_start}\n\n➖➖➖➖➖➖➖\nError...Buscando...\nBuscando en el Puerto: {port}\n➖➖➖➖➖➖➖")
                             except Exception as ex:print(str(ex))
                     return
                 except:
@@ -65,7 +65,7 @@ def filtrar_text(update, context):
                     print("Buscando proxy...")
                     context.bot.sendMessage(update.message.chat.id,msg_start)
                     time.sleep(1.5)
-                    try:bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg_start}\n\n➖➖➖➖➖➖➖\nBuscando proxy...\n\n➖➖➖➖➖➖➖")
+                    try:context.bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg_start}\n\n➖➖➖➖➖➖➖\nBuscando proxy...\n\n➖➖➖➖➖➖➖")
                     except Exception as ex:print(str(ex))
                     for port in range(2080,2085):
                         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -74,21 +74,21 @@ def filtrar_text(update, context):
                         if result == 0:
                             print ("Puerto abierto!")
                             print (f"Puerto: {port}")
-                            try:bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg_start}\n\n➖➖➖➖➖➖➖\nPuerto abierto!\nPuerto: {port}\n➖➖➖➖➖➖➖")
+                            try:context.bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg_start}\n\n➖➖➖➖➖➖➖\nPuerto abierto!\nPuerto: {port}\n➖➖➖➖➖➖➖")
                             except Exception as ex:print(str(ex))
                             proxy = f'181.225.253.188:{port}'
                             proxy_new = S5Crypto.encrypt(f'{proxy}')
                             time.sleep(5)
                             msg = 'Su nuevo proxy es:\n\nsocks5://' + proxy_new
                             context.bot.sendMessage(update.message.chat.id,msg)
-                            try:bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg}")
+                            try:context.bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg}")
                             except Exception as ex:print(str(ex))
                             break
                         else:
                             print ("Error...Buscando...")
                             print (f"Buscando en el puerto: {port}")
                             sock.close()
-                            try:bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg_start}\n\n➖➖➖➖➖➖➖\nError...Buscando...\nBuscando en el Puerto: {port}\n➖➖➖➖➖➖➖")
+                            try:context.bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg_start}\n\n➖➖➖➖➖➖➖\nError...Buscando...\nBuscando en el Puerto: {port}\n➖➖➖➖➖➖➖")
                             except Exception as ex:print(str(ex))
                     return
             except: context.bot.sendMessage(update.message.chat.id,"ERROR")
