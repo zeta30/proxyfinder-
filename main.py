@@ -24,6 +24,7 @@ def filtrar_text(update, context):
                     ip = str(text).split(' ')[2]
                     msg_start = '🛰 Buscando Proxy en el Rango de Puerto : '+rango_min+' - '+rango_max+'\nIP : '+ip+'!!\n\n⏳ Por favor espere .....'
                     print("Buscando proxy...")
+                    bot.sendMessage(update.message.chat.id,msg_start)
                     for port in range(int(rango_min),int(rango_max)):
                         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                         result = sock.connect_ex((ip,port))
@@ -44,6 +45,7 @@ def filtrar_text(update, context):
                 except:
                     msg_start = '🛰 Buscando Proxy!!\n\n⏳ Por favor espere .....'
                     print("Buscando proxy...")
+                    bot.sendMessage(update.message.chat.id,msg_start)
                     for port in range(2080,2085):
                         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                         result = sock.connect_ex(('181.225.253.188',port))
