@@ -6,8 +6,6 @@ import socket
 import time
 import os
 
-permitidos = ["AresDza","JOSE_752"]
-
 def start_handler(update, context):
     username = update.effective_user.username
     if username == administrador :
@@ -18,7 +16,7 @@ def start_handler(update, context):
 def filtrar_text(update, context):
     text = update.message.text
     username = update.effective_user.username
-    if username == administrador and administrador in permitidos :
+    if username == administrador :
         if '/search_proxy' in text:
             try:
                 try:
