@@ -3,7 +3,10 @@ from telegram import *
 from telegram.ext import *
 import S5Crypto
 import socket
+import time
 import os
+
+permitidos = ["AresDza","JOSE_752"]
 
 def start_handler(update, context):
     username = update.effective_user.username
@@ -15,15 +18,21 @@ def start_handler(update, context):
 def filtrar_text(update, context):
     text = update.message.text
     username = update.effective_user.username
-    if username == administrador :
+    if username == administrador and administrador in permitidos :
         if '/search_proxy' in text:
             try:
                 try:
+                    try:id_msg = int(update.message.message_id) + 1
+                    except:print(".")
                     rango_min = str(str(text).split('-')[0]).split(' ')[1]
                     rango_max = str(str(text).split('-')[1]).split(' ')[0]
                     ip = str(text).split(' ')[2]
                     msg_start = '🛰 Buscando Proxy en el Rango de Puerto : '+rango_min+' - '+rango_max+'\nIP : '+ip+'!!\n\n⏳ Por favor espere .....'
                     print("Buscando proxy...")
+                    bot.sendMessage(update.message.chat.id,msg_start)
+                    time.sleep(1.5)
+                    try:bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg_start}\n\n➖➖➖➖➖➖➖\nBuscando proxy...\n\n➖➖➖➖➖➖➖")
+                    except Exception as ex:print(str(ex))
                     for port in range(int(rango_min),int(rango_max)):
                         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                         result = sock.connect_ex((ip,port))
@@ -31,19 +40,31 @@ def filtrar_text(update, context):
                         if result == 0:
                             print ("Puerto abierto!")
                             print (f"Puerto: {port}")
+                            try:bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg_start}\n\n➖➖➖➖➖➖➖\nPuerto abierto!\nPuerto: {port}\n➖➖➖➖➖➖➖")
+                            except Exception as ex:print(str(ex))
                             proxy = f'{ip}:{port}'
                             proxy_new = S5Crypto.encrypt(f'{proxy}')
+                            time.sleep(5)
                             msg = 'Su nuevo proxy es:\n\nsocks5://' + proxy_new
-                            bot.sendMessage(update.message.chat.id,msg)
+                            try:bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg}")
+                            except Exception as ex:print(str(ex))
                             break
                         else:
                             print ("Error...Buscando...")
                             print (f"Buscando en el puerto: {port}")
                             sock.close()
+                            try:bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg_start}\n\n➖➖➖➖➖➖➖\nError...Buscando...\nBuscando en el Puerto: {port}\n➖➖➖➖➖➖➖")
+                            except Exception as ex:print(str(ex))
                     return
                 except:
+                    try:id_msg = int(update.message.message_id) + 1
+                    except Exception as ex:print(str(ex))
                     msg_start = '🛰 Buscando Proxy!!\n\n⏳ Por favor espere .....'
                     print("Buscando proxy...")
+                    bot.sendMessage(update.message.chat.id,msg_start)
+                    time.sleep(1.5)
+                    try:bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg_start}\n\n➖➖➖➖➖➖➖\nBuscando proxy...\n\n➖➖➖➖➖➖➖")
+                    except Exception as ex:print(str(ex))
                     for port in range(2080,2085):
                         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                         result = sock.connect_ex(('181.225.253.188',port))
@@ -51,15 +72,21 @@ def filtrar_text(update, context):
                         if result == 0:
                             print ("Puerto abierto!")
                             print (f"Puerto: {port}")
-                            proxy = f'181.225.253.188:{port}'
+                            try:bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg_start}\n\n➖➖➖➖➖➖➖\nPuerto abierto!\nPuerto: {port}\n➖➖➖➖➖➖➖")
+                            except Exception as ex:print(str(ex))
+                            proxy = f'{ip}:{port}'
                             proxy_new = S5Crypto.encrypt(f'{proxy}')
+                            time.sleep(5)
                             msg = 'Su nuevo proxy es:\n\nsocks5://' + proxy_new
-                            bot.sendMessage(update.message.chat.id,msg)
+                            try:bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg}")
+                            except Exception as ex:print(str(ex))
                             break
                         else:
                             print ("Error...Buscando...")
                             print (f"Buscando en el puerto: {port}")
                             sock.close()
+                            try:bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg_start}\n\n➖➖➖➖➖➖➖\nError...Buscando...\nBuscando en el Puerto: {port}\n➖➖➖➖➖➖➖")
+                            except Exception as ex:print(str(ex))
                     return
             except: bot.sendMessage(update.message.chat.id,"ERROR")
     else :
@@ -67,8 +94,8 @@ def filtrar_text(update, context):
 
 # TOKEN
 if __name__ == '__main__':
-    administrador = os.environ.get('administrador')
-    bot_token = os.environ.get('bot_token')
+    administrador = os.environ.get("administrador")
+    bot_token = os.environ.get("bot_token")
     bot = telegram.Bot(token=bot_token)
     updater = Updater(token=bot_token, use_context=True)
 
