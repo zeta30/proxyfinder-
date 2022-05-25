@@ -5,6 +5,8 @@ import S5Crypto
 import socket
 import os
 
+administrador = os.environ.get('administrador')
+
 def start_handler(update, context):
     username = update.effective_user.username
     if username == administrador :
@@ -14,7 +16,6 @@ def start_handler(update, context):
 
 def filtrar_text(update, context):
     text = update.message.text
-    administrador = os.environ.get('administrador')
     username = update.effective_user.username
     if username == administrador :
         if '/search_proxy' in text:
@@ -24,7 +25,6 @@ def filtrar_text(update, context):
                     rango_max = str(str(text).split('-')[1]).split(' ')[0]
                     ip = str(text).split(' ')[2]
                     msg_start = '🛰 Buscando Proxy en el Rango de Puerto : '+rango_min+' - '+rango_max+'\nIP : '+ip+'!!\n\n⏳ Por favor espere .....'
-                    update.message.reply_text(msg_start)
                     print("Buscando proxy...")
                     for port in range(int(rango_min),int(rango_max)):
                         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -36,7 +36,7 @@ def filtrar_text(update, context):
                             proxy = f'{ip}:{port}'
                             proxy_new = S5Crypto.encrypt(f'{proxy}')
                             msg = 'Su nuevo proxy es:\n\nsocks5://' + proxy_new
-                            update.message.reply_text(msg)
+                            bot.sendMessage(update.message.chat.id,msg)
                             break
                         else:
                             print ("Error...Buscando...")
@@ -45,7 +45,6 @@ def filtrar_text(update, context):
                     return
                 except:
                     msg_start = '🛰 Buscando Proxy!!\n\n⏳ Por favor espere .....'
-                    update.message.reply_text(msg_start)
                     print("Buscando proxy...")
                     for port in range(2080,2085):
                         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -57,14 +56,14 @@ def filtrar_text(update, context):
                             proxy = f'181.225.253.188:{port}'
                             proxy_new = S5Crypto.encrypt(f'{proxy}')
                             msg = 'Su nuevo proxy es:\n\nsocks5://' + proxy_new
-                            update.message.reply_text(msg)
+                            bot.sendMessage(update.message.chat.id,msg)
                             break
                         else:
                             print ("Error...Buscando...")
                             print (f"Buscando en el puerto: {port}")
                             sock.close()
                     return
-            except: update.message.reply_text("ERROR")
+            except: bot.sendMessage(update.message.chat.id,"ERROR")
     else :
         update.message.reply_text(text="@"+username+" no tienes acceso al bot")
 
