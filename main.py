@@ -3,7 +3,6 @@ from telegram import *
 from telegram.ext import *
 import S5Crypto
 import socket
-import time
 import os
 
 permitidos = ["AresDza","JOSE_752"]
@@ -31,7 +30,6 @@ def filtrar_text(update, context):
                     msg_start = '🛰 Buscando Proxy en el Rango de Puerto : '+rango_min+' - '+rango_max+'\nIP : '+ip+'!!\n\n⏳ Por favor espere .....'
                     context.bot.sendMessage(update.message.chat.id,msg_start)
                     print("Buscando proxy...")
-                    time.sleep(1.5)
                     try:context.bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg_start}\n\n➖➖➖➖➖➖➖\nBuscando proxy...\n\n➖➖➖➖➖➖➖")
                     except Exception as ex:print(str(ex))
                     context.bot.sendMessage(update.message.chat.id,msg_start)
@@ -46,7 +44,6 @@ def filtrar_text(update, context):
                             except Exception as ex:print(str(ex))
                             proxy = f'{ip}:{port}'
                             proxy_new = S5Crypto.encrypt(f'{proxy}')
-                            time.sleep(5)
                             msg = 'Su nuevo proxy es:\n\nsocks5://' + proxy_new
                             try:context.bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg}")
                             except Exception as ex:print(str(ex))
@@ -64,7 +61,6 @@ def filtrar_text(update, context):
                     msg_start = '🛰 Buscando Proxy!!\n\n⏳ Por favor espere .....'
                     print("Buscando proxy...")
                     context.bot.sendMessage(update.message.chat.id,msg_start)
-                    time.sleep(1.5)
                     try:context.bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg_start}\n\n➖➖➖➖➖➖➖\nBuscando proxy...\n\n➖➖➖➖➖➖➖")
                     except Exception as ex:print(str(ex))
                     for port in range(2080,2085):
@@ -78,7 +74,6 @@ def filtrar_text(update, context):
                             except Exception as ex:print(str(ex))
                             proxy = f'181.225.253.188:{port}'
                             proxy_new = S5Crypto.encrypt(f'{proxy}')
-                            time.sleep(5)
                             msg = 'Su nuevo proxy es:\n\nsocks5://' + proxy_new
                             context.bot.sendMessage(update.message.chat.id,msg)
                             try:context.bot.editMessageText(chat_id=update.message.chat.id,message_id=id_msg,text=f"{msg}")
