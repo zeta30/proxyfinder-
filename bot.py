@@ -33,14 +33,14 @@ def filtrar_text(update, context):
         except:pass
 
         #comandos
-        if '/crypt' in msgText:
-            proxy_sms = str(msgText).split(' ')[1]
+        if '/crypt' in text:
+            proxy_sms = str(text).split(' ')[1]
             proxy = S5Crypto.encrypt(f'{proxy_sms}')
             bot.sendMessage(update.message.chat.id, f'🔒Proxy encryptado🔒:\n{proxy}')
             return            
             
-        if '/decrypt' in msgText:
-            proxy_sms = str(msgText).split(' ')[1]
+        if '/decrypt' in text:
+            proxy_sms = str(text).split(' ')[1]
             proxy_de = S5Crypto.decrypt(f'{proxy_sms}')
             bot.sendMessage(update.message.chat.id, f'🔓Proxy decryptado🔓:\n{proxy_de}')
             return
