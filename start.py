@@ -1,4 +1,4 @@
-def start_i(username,userdata,isadmin):
+def start_i(username,Zeta30,isadmin):
     msg = 'Bienvenido al BOT PR_Finder V1 🛰\n\n'
     msg+= '👤 USUARIO : @' + str(username)+'\n\n'
     msg+= '🌐 IP : ' + str(userdata['ip'])+'\n'
