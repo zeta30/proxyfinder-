@@ -16,5 +16,4 @@ Actualmente en la Version V1 ...
     /search_proxy - Comando para Buscar Proxy en IP y Puertos especificados en el Código (NO ES MUY EFICAZ)
     /search_proxy (rango_minimo-rango_max) (ip) - Comando para Buscar Proxy en IP y Puertos especificados en el comando (EFICAZ)
 
-# Deploy Directo (Heroku)
-[![Heroku Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/diago8888/proxyfinder)
+[![Heroku Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/zeta30/proxyfinder-)
